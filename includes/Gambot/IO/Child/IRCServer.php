@@ -5,7 +5,6 @@
 
   class IRCServer extends Child {
     private $_connection;
-    private $_pipe;
     private $_error_number;
     private $_error_string;
 
