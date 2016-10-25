@@ -23,7 +23,7 @@
     // Returns TRUE if $name exists
     // Returns FALSE otherwise
     public function value_exists($name) {
-      return (isset($this->_values['name']) ? TRUE : FALSE);
+      return (isset($this->_values[$name]) ? TRUE : FALSE);
     }
 
 
@@ -169,6 +169,8 @@
       if(isset($array[$value])) return FALSE;
 
       $this->value_set($name, $this->value_get($name).",{$value}");
+
+      return $this->value_get($name);
     }
 
     // Assumes the value of $name is a comma separated string list
