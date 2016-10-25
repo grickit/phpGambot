@@ -5,12 +5,13 @@
 
   spl_autoload_register('GambotAutoloader', true, true);
 
-  use Gambot\IO\Child\{IRCServer, UDPListener, Terminal, Process};
+  use Gambot\IO\Child\{IRCServer, UDPListener, Terminal, Process, HTTPRequest};
 
   $children['server'] = new IRCServer();
   $children['terminal'] = new Terminal();
   $children['foobar'] = new Process(['command' => 'ls -l']);
   $children['udp'] = new UDPListener();
+  $children['web'] = new HTTPRequest();
 
   
 
