@@ -12,7 +12,15 @@
     }
 
     public function save() {
-      // TODO: saving
+      if(file_exists($this->filename) && ($filehandle = fopen($this->filename, 'w')) !== null) {
+        foreach($this->_values as $name => $value) {
+          fwrite($filehandle, "{$name} = \"{$value}\"\n");
+        }
+        fclose($filehandle);
+      }
+      else {
+        // TODO: good error handling
+      }
     }
 
     public function load() {
@@ -21,7 +29,7 @@
 
         while($line = fgets($filehandle)) {
           if(preg_match('/^([a-zA-Z0-9_#:-]+) = "(.+)"$/', $line, $matches)) {
-            $this->value_set($matches[0], $matches[1]);
+            $this->value_set($matches[1], $matches[2]);
           }
         }
         fclose($filehandle);
