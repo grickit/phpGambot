@@ -13,7 +13,7 @@
 
     public function __construct($attributes = []) {
       $this->command = $attributes['command'] ?? '';
-      $this->directory = $attributes['directory'] ?? '/home/dhoagland/source/phpGambot/';
+      $this->directory = $attributes['directory'] ?? getcwd();
       $this->environment = $attributes['environment'] ?? [];
 
       $this->run();
@@ -25,7 +25,7 @@
         [
           ['pipe', 'r'], // stdin
           ['pipe', 'w'], // stdout
-          ['pipe', 'w'], // stdout
+          ['pipe', 'w'], // stderr
         ],
         $this->_pipes,
         $this->directory,
