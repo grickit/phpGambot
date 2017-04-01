@@ -16,7 +16,11 @@ return [
     'Freenode Connection' => [
       'class' => 'Gambot\IO\Child\IRCServer',
       'attributes' => [
-        'username' => 'clairebot2'
+        'username' => 'clairebot2',
+        'tags_to_add' => [
+          'irc' => 'raw',
+          'network' => 'freenode'
+        ]
       ]
     ],
 
@@ -24,6 +28,8 @@ return [
   ], // END CHILDREN
 
   'handlers' => [
-
+    'STDOUT' => [
+      'class' => 'Gambot\IO\Handler\Terminal',
+    ]
   ], // END HANDLERS
 ];

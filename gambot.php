@@ -19,6 +19,14 @@
     $children[$name] = new $child['class']($attributes);
   }
 
+  // TODO: is this really the best place for this loading?
+  foreach($config['handlers'] as $name => $handler) {
+    if(!isset($handler['class'])) continue;
+
+    $attributes = $handler['attributes'] ?? [];
+    $handlers[$name] = new $handler['class']($attributes);
+  }
+
   $iterations_per_second = 10;
 
   $storage = new Gambot\Storage\Dictionary\FlatFile(['filename' => '/home/dhoagland/source/phpGambot/test.txt']);
@@ -32,8 +40,15 @@
 
     foreach($children as $name => $child) {
       if(($output = $child->getLines()) !== null) {
-        foreach($output as $line)
+        foreach($output as $line) {
           $message = new Message(['sender' => $name, 'body' => $line]);
+          $child->handleMessage($message);
+
+          foreach($handlers as $name => $handler) {
+            if($handler->matchMessage($message))
+              $handler->handleMessage($message);
+          }
+        }
       }
     }
   }

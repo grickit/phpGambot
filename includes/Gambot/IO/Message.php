@@ -20,8 +20,16 @@
       $this->body = $attributes['body'] ?? '';
       $this->type = $attributes['type'] ?? 'message';
       $this->tags = $attributes['tags'] ?? [];
+    }
 
-      // TODO: duh
-      echo "[INCOMING] [{$this->sender}]: {$this->body}\n";
+    public function addTag($key, $value, $overwrite = false) {
+      // If not already set or if we are allowed to overwrite
+      if(!isset($this->tags[$key]) || $overwrite === true)
+        $this->tags[$key] = TRUE;
+    }
+
+    public function removeTag($key) {
+      if(isset($this->tags[$key]))
+        unset($this->tags[$key]);
     }
   }
