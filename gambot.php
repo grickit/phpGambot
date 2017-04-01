@@ -5,15 +5,10 @@
 
   spl_autoload_register('GambotAutoloader', true, true);
 
-  use Gambot\IO\Child\{IRCServer, UDPListener, Terminal, Process, HTTPRequest};
-
-//  $children['server'] = new IRCServer();
-//  $children['terminal'] = new Terminal();
-//  $children['foobar'] = new Process(['command' => 'ls -l']);
-//  $children['udp'] = new UDPListener();
-//  $children['web'] = new HTTPRequest();
-
+  // TODO: path to config needs to be a cli switch
   $config = require getcwd() . '/config/clairbot.php';
+
+  // TODO: is this really the best place for this loading?
   foreach($config['children'] as $name => $child) {
     if(!isset($child['class'])) continue;
 
