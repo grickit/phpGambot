@@ -11,7 +11,7 @@
     public $address;
     public $port;
 
-    public function __construct($attributes = []) {
+    public function init($attributes = []) {
       $this->address = $attributes['address'] ?? '127.0.0.1';
       $this->port = $attributes['port'] ?? '6891';
 

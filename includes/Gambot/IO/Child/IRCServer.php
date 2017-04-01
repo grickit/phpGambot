@@ -16,7 +16,7 @@
     public $password;
     public $channel;
 
-    public function __construct($attributes = []) {
+    public function init($attributes = []) {
       $this->address = $attributes['addresss'] ?? 'chat.freenode.net';
       $this->port = $attribtes['port'] ?? '6667';
       $this->username = $attributes['username'] ?? 'aPambot';

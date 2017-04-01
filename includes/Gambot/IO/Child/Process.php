@@ -11,7 +11,7 @@
     public $directory;
     public $environment;
 
-    public function __construct($attributes = []) {
+    public function init($attributes = []) {
       $this->command = $attributes['command'] ?? '';
       $this->directory = $attributes['directory'] ?? getcwd();
       $this->environment = $attributes['environment'] ?? [];

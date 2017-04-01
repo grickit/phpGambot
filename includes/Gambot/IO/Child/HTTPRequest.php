@@ -13,7 +13,7 @@
     public $method;
     public $data;
 
-    public function __construct($attributes = []) {
+    public function init($attributes = []) {
       $this->address = $attributes['address'] ?? 'http://google.com';
       $this->transport = $attributes['transport'] ?? 'http';
       $this->method = $attributes['method'] ?? 'GET';
