@@ -30,6 +30,11 @@ return [
   'handlers' => [
     'STDOUT' => [
       'class' => 'Gambot\IO\Handler\Terminal',
+      'attributes' => [
+        'tags_to_receive' => [
+          'irc' => 'raw'
+        ],
+      ]
     ]
   ], // END HANDLERS
 ];
