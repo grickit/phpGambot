@@ -11,7 +11,7 @@
       $this->init($attributes);
     }
 
-    public function init($attributes = []) {
+    public function init($attributes) {
 
     }
 

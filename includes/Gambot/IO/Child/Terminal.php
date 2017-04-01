@@ -5,7 +5,7 @@
   
   class Terminal extends Child {
 
-    public function init($attributes = []) {
+    public function init($attributes) {
       $this->_pipe_messages = new Pipe(STDIN);
       $this->_pipe_errors = new Pipe(STDERR);
     }
