@@ -5,6 +5,9 @@
 
   spl_autoload_register('GambotAutoloader', true, true);
 
+  use Gambot\IO\Message;
+
+
   // TODO: path to config needs to be a cli switch
   $config = require getcwd() . '/config/clairbot.php';
 
@@ -29,7 +32,8 @@
 
     foreach($children as $name => $child) {
       if(($output = $child->getLines()) !== null) {
-        foreach($output as $line) echo "[INCOMING] [{$name}]: {$line}\n";
+        foreach($output as $line)
+          $message = new Message(['sender' => $name, 'body' => $line]);
       }
     }
   }

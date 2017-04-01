@@ -16,7 +16,7 @@ return [
     'Freenode Connection' => [
       'class' => 'Gambot\IO\Child\IRCServer',
       'attributes' => [
-
+        'username' => 'clairebot2'
       ]
     ],
 
