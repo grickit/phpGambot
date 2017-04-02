@@ -15,22 +15,22 @@
       $this->_tags_to_remove = $attributes['tags_to_remove'] ?? [];
     }
 
-    private function removeTags(&$message) {
+    private function removeTags($message) {
       foreach($this->_tags_to_remove as $key => $value)
         $message->removeTag($key);
     }
 
-    private function addTags(&$message) {
+    private function addTags($message) {
       foreach($this->_tags_to_add as $key => $value)
         $message->addTag($key, $value);
     }
 
-    public function handleMessage(&$message) {
+    public function handleMessage($message) {
       $this->removeTags($message);
       $this->addTags($message);
     }
 
-    public function matchMessage(Message &$message) {
+    public function matchMessage(Message $message) {
       // shortcut if the handler is receiving all messages
       if(empty($this->_tags_to_receive))
         return true;
