@@ -35,7 +35,6 @@
       if(empty($this->_tags_to_receive))
         return true;
 
-      // TODO: actually implement matching
       foreach($this->_tags_to_receive as $key => $value) {
         if(!$message->matchTag($key, $value))
           return false;
