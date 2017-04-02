@@ -38,13 +38,13 @@
 
   while(usleep(1000000/$iterations_per_second) == null) {
 
-    foreach($children as $name => $child) {
+    foreach($children as $child_name => $child) {
       if(($output = $child->getLines()) !== null) {
         foreach($output as $line) {
-          $message = new Message(['sender' => $name, 'body' => $line]);
+          $message = new Message(['sender' => $child_name, 'body' => $line]);
           $child->handleMessage($message);
 
-          foreach($handlers as $name => $handler) {
+          foreach($handlers as $handler_name => $handler) {
             if($handler->matchMessage($message))
               $handler->handleMessage($message);
           }
