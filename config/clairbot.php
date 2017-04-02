@@ -19,10 +19,23 @@ return [
         'username' => 'clairebot2',
         'tags_to_add' => [
           'irc' => 'raw',
-          'network' => 'freenode'
+          'network' => 'freenode',
+          'bot' => 'clairbot2',
         ]
       ]
     ],
+
+    'Freenode Connection 2' => [
+      'class' => 'Gambot\IO\Child\IRCServer',
+      'attributes' => [
+        'username' => 'clairbot3',
+        'tags_to_add' => [
+          'irc' => 'raw',
+          'network' => 'freenode',
+          'bot' => 'clairbot3',
+        ]
+      ]
+    ]
 
   
   ], // END CHILDREN
@@ -32,7 +45,8 @@ return [
       'class' => 'Gambot\IO\Handler\Terminal',
       'attributes' => [
         'tags_to_receive' => [
-          'irc' => 'raw'
+          'irc' => 'raw',
+          'bot' => 'clairbot3',
         ],
       ]
     ]

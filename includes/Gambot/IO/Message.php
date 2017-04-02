@@ -28,7 +28,7 @@
         return false;
 
       // succeed if they don't care about the value
-      if($value = '*')
+      if($value === '*')
         return true;
 
       // succeed if the value matches
@@ -42,7 +42,7 @@
     public function addTag($key, $value, $overwrite = false) {
       // If not already set or if we are allowed to overwrite
       if(!isset($this->tags[$key]) || $overwrite === true)
-        $this->tags[$key] = TRUE;
+        $this->tags[$key] = $value;
     }
 
     public function removeTag($key) {
