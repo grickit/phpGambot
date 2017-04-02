@@ -1,6 +1,8 @@
 <?php
 
   namespace Gambot\IO\Child;
+
+  use Gambot\IO\Message;
   
   abstract class Child {
     protected $_pipe_messages;
@@ -30,13 +32,13 @@
       fwrite($this->_pipe_write, "{$message}\015\012");
     }
 
-    private function addTags(&$message) {
+    private function addTags(Message $message) {
       foreach($this->_tags_to_add as $key => $value) {
         $message->addTag($key, $value);
       }
     }
 
-    public function handleMessage(&$message) {
+    public function handleMessage(Message $message) {
       $this->addTags($message);
     }
   }

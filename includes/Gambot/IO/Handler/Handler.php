@@ -15,17 +15,17 @@
       $this->_tags_to_remove = $attributes['tags_to_remove'] ?? [];
     }
 
-    protected function removeTags($message) {
+    protected function removeTags(Message $message) {
       foreach($this->_tags_to_remove as $key => $value)
         $message->removeTag($key);
     }
 
-    protected function addTags($message) {
+    protected function addTags(Message $message) {
       foreach($this->_tags_to_add as $key => $value)
         $message->addTag($key, $value);
     }
 
-    public function handleMessage($message) {
+    public function handleMessage(Message $message) {
       $this->removeTags($message);
       $this->addTags($message);
     }

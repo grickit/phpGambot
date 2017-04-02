@@ -1,10 +1,12 @@
 <?php
 
   namespace Gambot\IO\Handler;
+
+  use Gambot\IO\Message;
   
   class Terminal extends Handler {
     
-    public function handleMessage($message) {
+    public function handleMessage(Message $message) {
       parent::handleMessage($message);
 
       echo "[INCOMING] [{$message->sender}]: {$message->body}\n";
