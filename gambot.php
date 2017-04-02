@@ -36,19 +36,38 @@
   var_dump($storage->value_dump());
   $storage->save();
 
-  while(usleep(1000000/$iterations_per_second) == null) {
+  $messages = [];
 
-    foreach($children as $child_name => $child) {
+  while(usleep(1000000/$iterations_per_second) == null) {
+    // Put some new messages on the queue
+    foreach($children as $name => $child) {
       if(($output = $child->getLines()) !== null) {
         foreach($output as $line) {
-          $message = new Message(['sender' => $child_name, 'body' => $line]);
+          $message = new Message(['sender' => $name, 'body' => $line]);
           $child->handleMessage($message);
+          array_push($messages, $message);
+        }
+      }
+    }
 
-          foreach($handlers as $handler_name => $handler) {
-            if($handler->matchMessage($message))
-              $handler->handleMessage($message);
+    // Prepare a new queue for messages that come back from handlers
+    // We do this to avoid an infinite loop in proceeding while()
+    $new_messages = [];
+
+    // Churn through the queue
+    while($message = array_shift($messages)) {
+      foreach($handlers as $handler_name => $handler) {
+        if($handler->matchMessage($message)) {
+          $return = $handler->handleMessage($message);
+
+          // Can throw messages back onto the end of the queue
+          if(gettype($return) === 'object' && is_a($return, 'Gambot\IO\Message')) {
+            array_push($new_messages, $message);
           }
         }
       }
     }
+
+    $messages = $new_messages;
+
   }
