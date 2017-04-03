@@ -1,7 +1,7 @@
 <?php
 
   namespace Gambot\IO\Handler;
-
+  use Gambot\IO\Handler;
   use Gambot\IO\Message;
   
   class Terminal extends Handler {

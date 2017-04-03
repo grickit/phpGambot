@@ -16,6 +16,7 @@
     if(!isset($child['class'])) continue;
 
     $attributes = $child['attributes'] ?? [];
+    $attributes['name'] = $attributes['name'] ?? $name;
     $children[$name] = new $child['class']($attributes);
   }
 
@@ -41,12 +42,8 @@
   while(usleep(1000000/$iterations_per_second) == null) {
     // Put some new messages on the queue
     foreach($children as $name => $child) {
-      if(($output = $child->getLines()) !== null) {
-        foreach($output as $line) {
-          $message = new Message(['sender' => $name, 'body' => $line]);
-          $child->handleMessage($message);
-          array_push($messages, $message);
-        }
+      foreach($child->getMessages() as $message) {
+        array_push($messages, $message);
       }
     }
 

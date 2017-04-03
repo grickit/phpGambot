@@ -1,7 +1,6 @@
 <?php
 
-  namespace Gambot\IO\Handler;
-
+  namespace Gambot\IO;
   use Gambot\IO\Message;
   
   abstract class Handler {

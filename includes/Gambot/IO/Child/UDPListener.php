@@ -1,6 +1,7 @@
 <?php
 
   namespace Gambot\IO\Child;
+  use Gambot\IO\Child;
   use Gambot\IO\Pipe;
 
   class UDPListener extends Child {
