@@ -1,10 +1,9 @@
 <?php
 
-  namespace Gambot\IO\Child;
-  use Gambot\IO\Child;
+  namespace Gambot\IO\Components;
   use Gambot\IO\Pipe;
 
-  class IRCServer extends Child {
+  class IRCServer extends \Gambot\IO\PipeComponent {
     private $_connection;
     private $_error_number;
     private $_error_string;
@@ -33,8 +32,8 @@
         $this->_connection = fsockopen(
           $this->address,
           $this->port,
-          $this->error_number,
-          $this->error_string,
+          $this->_error_number,
+          $this->_error_string,
           $this->timeout
         );
 

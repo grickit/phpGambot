@@ -1,10 +1,9 @@
 <?php
 
   namespace Gambot\IO\Handler;
-  use Gambot\IO\Handler;
   use Gambot\IO\Message;
   
-  class Terminal extends Handler {
+  class Terminal extends \Gambot\IO\Component {
     
     public function handleMessage(Message $message) {
       parent::handleMessage($message);

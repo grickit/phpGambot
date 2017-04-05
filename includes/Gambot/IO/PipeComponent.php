@@ -3,24 +3,14 @@
   namespace Gambot\IO;
   use Gambot\IO\Message;
   
-  abstract class Child extends MessageSource {
+  abstract class PipeComponent extends \Gambot\IO\Component {
     protected $_pipe_messages;
     protected $_pipe_errors;
     protected $_pipe_write;
-    protected $_tags_to_add;
+    protected $_tags_to_spawn;
 
     public function __construct($attributes = []) {
-      if(!isset($attributes['name']))
-        die('Child must have atrribute "name".');
-
-      $this->name = $attributes['name'];
-      $this->_tags_to_add = $attributes['tags_to_add'] ?? [];
-
-      $this->init($attributes);
-    }
-
-    public function init($attributes) {
-
+      parent::__construct($attributes);
     }
 
     protected function getLines() {
@@ -35,22 +25,16 @@
       fwrite($this->_pipe_write, "{$message}\015\012");
     }
 
-    protected function addTags(Message $message) {
-      foreach($this->_tags_to_add as $key => $value) {
-        $message->addTag($key, $value);
-      }
-    }
-
     public function getMessages() {
       foreach($this->getLines() as $line) {
         $message = new Message(['sender' => $this->name, 'body' => $line]);
-        $this->addTags($message);
+        $this->spawnTags($message);
         array_push($this->_message_queue, $message);
       }
 
       foreach($this->getErrors() as $line) {
         $message = new Message(['sender' => $this->name, 'body' => $line, 'tags' => ['error' => TRUE]]);
-        $this->addTags($message);
+        $this->spawnTags($message);
         array_push($this->_message_queue, $message);
       }
 

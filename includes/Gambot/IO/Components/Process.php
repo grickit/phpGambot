@@ -1,10 +1,9 @@
 <?php
 
-  namespace Gambot\IO\Child;
-  use Gambot\IO\Child;
+  namespace Gambot\IO\Components;
   use Gambot\IO\Pipe;
   
-  class Process extends Child {
+  class Process extends \Gambot\IO\PipeComponent {
     private $_process;
     private $_pipes;
 

@@ -1,10 +1,9 @@
 <?php
 
-  namespace Gambot\IO\Child;
-  use Gambot\IO\Child;
+  namespace Gambot\IO\Components;
   use Gambot\IO\Pipe;
 
-  class HTTPRequest extends Child {
+  class HTTPRequest extends \Gambot\IO\PipeComponent {
     private $_request;
     private $_context;
     private $_content;

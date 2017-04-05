@@ -3,15 +3,39 @@
   namespace Gambot\IO;
   use Gambot\IO\Message;
   
-  abstract class Handler {
-    protected $_tags_to_receive;
-    protected $_tags_to_add;
-    protected $_tags_to_remove;
+  abstract class Component extends \Gambot\IO\MessageReceiver {
+    protected $_name;
+    protected $_spawns_messages;
+    protected $_handles_messages;
 
     public function __construct($attributes) {
-      $this->_tags_to_receive = $attributes['tags_to_receive'] ?? [];
-      $this->_tags_to_add = $attributes['tags_to_add'] ?? [];
-      $this->_tags_to_remove = $attributes['tags_to_remove'] ?? [];
+      if(!isset($attributes['name']))
+        die('Component must have atrribute "name".');
+  
+      $this->_name = $attributes['name'];
+      parent::__construct($attributes);
+
+      $this->_spawns_messages = $attributes['spawns_messages'] ?? false;
+      $this->_handles_messages = $attributes['handles_messages'] ?? false;
+
+      $this->init($attributes);
+    }
+
+    public function init($attributes) {
+
+    }
+
+    public function __get($name) {
+      if($name === 'name')
+        return $this->_name;
+
+      if($name === 'spawns_messages')
+        return $this->_spawns_messages;
+      
+      elseif($name === 'handles_messages')
+        return $this->_handles_messages;
+
+      else return null;
     }
 
     protected function removeTags(Message $message) {

@@ -12,28 +12,28 @@
   $config = require getcwd() . '/config/clairbot.php';
 
   // TODO: is this really the best place for this loading?
-  foreach($config['children'] as $name => $child) {
-    if(!isset($child['class'])) continue;
+  foreach($config['components'] as $name => $component_config) {
+    if(!isset($component_config['class'])) continue;
 
-    $attributes = $child['attributes'] ?? [];
-    $attributes['name'] = $attributes['name'] ?? $name;
-    $children[$name] = new $child['class']($attributes);
-  }
+    if(!isset($component_config['name']))
+      $component_config['name'] = $name;
 
-  // TODO: is this really the best place for this loading?
-  foreach($config['handlers'] as $name => $handler) {
-    if(!isset($handler['class'])) continue;
+    $component = new $component_config['class']($component_config);
+    if($component->spawns_messages)
+      $message_sources[$name] = $component;
 
-    $attributes = $handler['attributes'] ?? [];
-    $handlers[$name] = new $handler['class']($attributes);
+    if($component->handles_messages)
+      $message_receivers[$name] = $component;
+    
+    $components[$name] = $component;
   }
 
   $iterations_per_second = 10;
 
   $storage = new Gambot\Storage\Dictionary\FlatFile(['filename' => '/home/dhoagland/source/phpGambot/test.txt']);
 
-  $children['STDIN']->send($storage->value_push('foobar',45));
-  $children['STDIN']->send($storage->value_pull('foobar','33'));
+  $components['STDIN']->send($storage->value_push('foobar',45));
+  $components['STDIN']->send($storage->value_pull('foobar','33'));
   var_dump($storage->value_dump());
   $storage->save();
 
@@ -41,7 +41,7 @@
 
   while(usleep(1000000/$iterations_per_second) == null) {
     // Put some new messages on the queue
-    foreach($children as $name => $child) {
+    foreach($message_sources as $name => $child) {
       foreach($child->getMessages() as $message) {
         array_push($messages, $message);
       }
@@ -53,7 +53,7 @@
 
     // Churn through the queue
     while($message = array_shift($messages)) {
-      foreach($handlers as $handler_name => $handler) {
+      foreach($message_receivers as $handler_name => $handler) {
         if($handler->matchMessage($message)) {
           $return = $handler->handleMessage($message);
 

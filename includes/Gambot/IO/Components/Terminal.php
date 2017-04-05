@@ -1,10 +1,9 @@
 <?php
 
-  namespace Gambot\IO\Child;
-  use Gambot\IO\Child;
+  namespace Gambot\IO\Components;
   use Gambot\IO\Pipe;
   
-  class Terminal extends Child {
+  class Terminal extends \Gambot\IO\PipeComponent {
 
     public function init($attributes) {
       $this->_pipe_messages = new Pipe(STDIN);

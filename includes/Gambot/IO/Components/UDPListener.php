@@ -1,10 +1,9 @@
 <?php
 
-  namespace Gambot\IO\Child;
-  use Gambot\IO\Child;
+  namespace Gambot\IO\Components;
   use Gambot\IO\Pipe;
 
-  class UDPListener extends Child {
+  class UDPListener extends \Gambot\IO\PipeComponent {
     private $_connection;
     private $_error_number;
     private $_error_string;
