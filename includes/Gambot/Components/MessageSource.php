@@ -1,6 +1,6 @@
 <?php
-  namespace Gambot\IO;
-  use Gambot\IO\Message;
+
+  namespace Gambot\Components;
 
   abstract class MessageSource {
     protected $_tags_to_spawn;
@@ -10,7 +10,7 @@
       $this->_tags_to_spawn = $attributes['tags_to_spawn'] ?? [];
     }
 
-    protected function spawnTags(Message $message) {
+    protected function spawnTags($message) {
       foreach($this->_tags_to_spawn as $key => $value) {
         $message->addTag($key, $value);
       }

@@ -1,11 +1,11 @@
 <?php
 
-  namespace Gambot\IO\Handler;
-  use Gambot\IO\Message;
+  namespace Gambot\Components\Logging;
+  use \Gambot\BaseMessage;
   
-  class Terminal extends \Gambot\IO\Component {
+  class Terminal extends \Gambot\Components\BaseComponent {
     
-    public function handleMessage(Message $message) {
+    public function handleMessage(BaseMessage $message) {
       parent::handleMessage($message);
 
       echo "[INCOMING] [{$message->sender}]: {$message->body}\n";

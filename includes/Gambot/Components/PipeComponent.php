@@ -1,9 +1,9 @@
 <?php
 
-  namespace Gambot\IO;
-  use Gambot\IO\Message;
+  namespace Gambot\Components;
+  use \Gambot\BaseMessage;
   
-  abstract class PipeComponent extends \Gambot\IO\Component {
+  abstract class PipeComponent extends \Gambot\Components\BaseComponent {
     protected $_pipe_messages;
     protected $_pipe_errors;
     protected $_pipe_write;
@@ -27,13 +27,13 @@
 
     public function getMessages() {
       foreach($this->getLines() as $line) {
-        $message = new Message(['sender' => $this->name, 'body' => $line]);
+        $message = new BaseMessage(['sender' => $this->name, 'body' => $line]);
         $this->spawnTags($message);
         array_push($this->_message_queue, $message);
       }
 
       foreach($this->getErrors() as $line) {
-        $message = new Message(['sender' => $this->name, 'body' => $line, 'tags' => ['error' => TRUE]]);
+        $message = new BaseMessage(['sender' => $this->name, 'body' => $line, 'tags' => ['error' => TRUE]]);
         $this->spawnTags($message);
         array_push($this->_message_queue, $message);
       }

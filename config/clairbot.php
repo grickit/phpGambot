@@ -3,18 +3,18 @@
 return [
   'components' => [
     'STDIN' => [
-      'class' => 'Gambot\IO\Components\Terminal',
+      'class' => 'Gambot\Components\IO\Terminal',
       'spawns_messages' => true,
     ],
 
     'ls joke' => [
-      'class' => 'Gambot\IO\Components\Process',
+      'class' => 'Gambot\Components\IO\Process',
       'spawns_messages' => true,
       'command' => 'ls -l',
     ],
 
     'Freenode Connection' => [
-      'class' => 'Gambot\IO\Components\IRCServer',
+      'class' => 'Gambot\Components\IO\IRCServer',
       'spawns_messages' => true,
       'username' => 'clairebot2',
       'tags_to_spawn' => [
@@ -25,7 +25,7 @@ return [
     ],
 
     'Freenode Connection 2' => [
-      'class' => 'Gambot\IO\Components\IRCServer',
+      'class' => 'Gambot\Components\IO\IRCServer',
       'spawns_messages' => true,
       'username' => 'clairbot3',
       'tags_to_spawn' => [
@@ -36,7 +36,7 @@ return [
     ],
 
     'STDOUT' => [
-      'class' => 'Gambot\IO\Handler\Terminal',
+      'class' => 'Gambot\Components\Logging\Terminal',
       'handles_messages' => true,
       'tags_to_receive' => [
         'irc' => 'raw',
@@ -45,7 +45,7 @@ return [
     ],
 
     'STDOUT2' => [
-      'class' => 'Gambot\IO\Handler\Terminal',
+      'class' => 'Gambot\Components\Logging\Terminal',
       'handles_messages' => true,
       'tags_to_receive' => [
         'irc' => 'raw',

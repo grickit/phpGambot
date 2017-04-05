@@ -1,6 +1,6 @@
 <?php
 
-  namespace Gambot\IO;
+  namespace Gambot;
   
   class Pipe {
     private $_handle;

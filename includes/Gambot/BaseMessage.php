@@ -1,8 +1,8 @@
 <?php
 
-  namespace Gambot\IO;
+  namespace Gambot;
   
-  class Message {
+  class BaseMessage {
     public $sender;
     public $body;
     public $type;

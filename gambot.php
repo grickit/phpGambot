@@ -5,7 +5,7 @@
 
   spl_autoload_register('GambotAutoloader', true, true);
 
-  use Gambot\IO\Message;
+  use \Gambot\BaseMessage;
 
 
   // TODO: path to config needs to be a cli switch

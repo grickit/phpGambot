@@ -1,7 +1,9 @@
 <?php
-  namespace Gambot\IO;
 
-  abstract class MessageReceiver extends \Gambot\IO\MessageSource {
+  namespace Gambot\Components;
+  use \Gambot\BaseMessage;
+
+  abstract class MessageReceiver extends \Gambot\Components\MessageSource {
     protected $_tags_to_receive;
     protected $_tags_to_add;
     protected $_tags_to_remove;
@@ -14,24 +16,24 @@
       $this->_tags_to_remove = $attributes['tags_to_remove'] ?? [];
     }
 
-    protected function removeTags(Message $message) {
+    protected function removeTags(BaseMessage $message) {
       foreach($this->_tags_to_remove as $key => $value)
         $message->removeTag($key);
     }
 
-    protected function addTags(Message $message) {
+    protected function addTags(BaseMessage $message) {
       foreach($this->_tags_to_add as $key => $value)
         $message->addTag($key, $value);
     }
 
-    public function handleMessage(Message $message) {
+    public function handleMessage(BaseMessage $message) {
       $this->removeTags($message);
       $this->addTags($message);
 
       return true;
     }
 
-    public function matchMessage(Message $message) {
+    public function matchMessage(BaseMessage $message) {
       // shortcut if the handler is receiving all messages
       if(empty($this->_tags_to_receive))
         return true;

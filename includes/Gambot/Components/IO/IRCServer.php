@@ -1,9 +1,9 @@
 <?php
 
-  namespace Gambot\IO\Components;
-  use Gambot\IO\Pipe;
+  namespace Gambot\Components\IO;
+  use \Gambot\Pipe;
 
-  class IRCServer extends \Gambot\IO\PipeComponent {
+  class IRCServer extends \Gambot\Components\PipeComponent {
     private $_connection;
     private $_error_number;
     private $_error_string;

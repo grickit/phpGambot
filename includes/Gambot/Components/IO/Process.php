@@ -1,9 +1,9 @@
 <?php
 
-  namespace Gambot\IO\Components;
-  use Gambot\IO\Pipe;
+  namespace Gambot\Components\IO;
+  use \Gambot\Pipe;
   
-  class Process extends \Gambot\IO\PipeComponent {
+  class Process extends \Gambot\Components\PipeComponent {
     private $_process;
     private $_pipes;
 

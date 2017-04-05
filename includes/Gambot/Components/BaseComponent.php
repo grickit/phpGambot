@@ -1,9 +1,9 @@
 <?php
 
-  namespace Gambot\IO;
-  use Gambot\IO\Message;
+  namespace Gambot\Components;
+  use \Gambot\BaseMessage;
   
-  abstract class Component extends \Gambot\IO\MessageReceiver {
+  abstract class BaseComponent extends \Gambot\Components\MessageReceiver {
     protected $_name;
     protected $_spawns_messages;
     protected $_handles_messages;
@@ -38,22 +38,22 @@
       else return null;
     }
 
-    protected function removeTags(Message $message) {
+    protected function removeTags(BaseMessage $message) {
       foreach($this->_tags_to_remove as $key => $value)
         $message->removeTag($key);
     }
 
-    protected function addTags(Message $message) {
+    protected function addTags(BaseMessage $message) {
       foreach($this->_tags_to_add as $key => $value)
         $message->addTag($key, $value);
     }
 
-    public function handleMessage(Message $message) {
+    public function handleMessage(BaseMessage $message) {
       $this->removeTags($message);
       $this->addTags($message);
     }
 
-    public function matchMessage(Message $message) {
+    public function matchMessage(BaseMessage $message) {
       // shortcut if the handler is receiving all messages
       if(empty($this->_tags_to_receive))
         return true;
