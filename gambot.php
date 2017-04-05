@@ -37,34 +37,26 @@
   var_dump($storage->value_dump());
   $storage->save();
 
-  $messages = [];
-
+  // Main loop shouldn't take 100% CPU
   while(usleep(1000000/$iterations_per_second) == null) {
-    // Put some new messages on the queue
+
+    // Poll our MessageSources for new messages
     foreach($message_sources as $name => $child) {
+
+      // Iterate over all the messages
       foreach($child->getMessages() as $message) {
-        array_push($messages, $message);
-      }
-    }
 
-    // Prepare a new queue for messages that come back from handlers
-    // We do this to avoid an infinite loop in proceeding while()
-    $new_messages = [];
+        // Check each receiver to see if they want it
+        foreach($message_receivers as $handler_name => $handler) {
 
-    // Churn through the queue
-    while($message = array_shift($messages)) {
-      foreach($message_receivers as $handler_name => $handler) {
-        if($handler->matchMessage($message)) {
-          $return = $handler->handleMessage($message);
+          // If they want it, give it to them
+          if($handler->matchMessage($message)) {
+            $return = $handler->handleMessage($message);
 
-          // Can throw messages back onto the end of the queue
-          if(gettype($return) === 'object' && is_a($return, 'Gambot\IO\Message')) {
-            array_push($new_messages, $message);
+            // Allow handlers to swallow messages
+            if($return !== true) break;
           }
         }
       }
     }
-
-    $messages = $new_messages;
-
   }

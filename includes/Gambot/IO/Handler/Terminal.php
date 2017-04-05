@@ -10,7 +10,9 @@
 
       echo "[INCOMING] [{$message->sender}]: {$message->body}\n";
 
+      // Randomly swallow some messages by not returning true (just testing) TODO: remove this
       if(rand(0,2) !== 2)
-        return $message;
+        return true;
+      
     }
   }

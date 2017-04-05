@@ -27,6 +27,8 @@
     public function handleMessage(Message $message) {
       $this->removeTags($message);
       $this->addTags($message);
+
+      return true;
     }
 
     public function matchMessage(Message $message) {

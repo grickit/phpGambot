@@ -37,13 +37,21 @@ return [
 
     'STDOUT' => [
       'class' => 'Gambot\IO\Handler\Terminal',
-      'spawns_messages' => true,
+      'handles_messages' => true,
+      'tags_to_receive' => [
+        'irc' => 'raw',
+        'bot' => 'clairbot3',
+      ],
+    ],
+
+    'STDOUT2' => [
+      'class' => 'Gambot\IO\Handler\Terminal',
       'handles_messages' => true,
       'tags_to_receive' => [
         'irc' => 'raw',
         'bot' => 'clairbot3',
       ],
     ]
-    
+
   ]
 ];
