@@ -18,20 +18,31 @@ return [
       'spawns_messages' => true,
       'username' => 'clairebot2',
       'tags_to_spawn' => [
-        'irc' => 'raw',
+        'source' => 'irc',
+        'parsed' => 'raw',
         'network' => 'freenode',
-        'bot' => 'clairbot2',
+        'botname' => 'clairbot2',
       ]
     ],
 
-    'Freenode Connection 2' => [
-      'class' => 'Gambot\Components\IO\IRCServer',
+    'Freenode Parser' => [
+      'class' => 'Gambot\Components\IRC\RawFreenodeParser',
       'spawns_messages' => true,
-      'username' => 'clairbot3',
+      'handles_messages' => true,
       'tags_to_spawn' => [
-        'irc' => 'raw',
+        'source' => 'irc',
+        'parsed' => 'parsed',
         'network' => 'freenode',
-        'bot' => 'clairbot3',
+      ],
+      'rulesets' => [
+        'raw_irc' => [
+          'class' => '\Gambot\Rulesets\TagExactMatchRuleset',
+          'tags_to_receive' => [
+            'source' => 'irc',
+            'parsed' => 'raw',
+            'network' => 'freenode'
+          ]
+        ],
       ]
     ],
 
@@ -39,17 +50,9 @@ return [
       'class' => 'Gambot\Components\Logging\Terminal',
       'handles_messages' => true,
       'rulesets' => [
-        'clairbot3' => [
+        'all_messages' => [
           'class' => '\Gambot\Rulesets\TagExactMatchRuleset',
-          'tags_to_receive' => [
-            'irc' => 'raw',
-            'bot' => 'clairbot3',
-          ],
         ],
-        'ls' => [
-          'class' => '\Gambot\Rulesets\SenderExactMatchRuleset',
-          'sender' => 'ls joke'
-        ]
       ]
     ],
 

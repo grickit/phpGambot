@@ -14,7 +14,7 @@
       foreach($rulesets as $name => $ruleset_config) {
         if(!isset($ruleset_config['class'])) continue;
         
-        $this->_rulesets[$name] = new $ruleset_config['class']($ruleset);
+        $this->_rulesets[$name] = new $ruleset_config['class']($ruleset_config);
       }
     }
 

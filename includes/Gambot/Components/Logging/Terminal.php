@@ -8,7 +8,9 @@
     public function handleMessage($rulesetName, BaseMessage $message) {
       parent::handleMessage($rulesetName, $message);
 
-      echo "[INCOMING] [{$message->sender}]: {$message->body}\n";
+      $message_json = json_encode($message);
+
+      echo "[{$message->sender}]: {$message_json}\n";
 
       // Randomly swallow some messages by not returning true (just testing) TODO: remove this
       if(rand(0,2) !== 2)
