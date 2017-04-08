@@ -11,8 +11,10 @@
 
       $rulesets = $attributes['rulesets'] ?? [];
 
-      foreach($rulesets as $name => $ruleset) {
-        $this->_rulesets[$name] = new \Gambot\Rulesets\BaseRuleset($ruleset);
+      foreach($rulesets as $name => $ruleset_config) {
+        if(!isset($ruleset_config['class'])) continue;
+        
+        $this->_rulesets[$name] = new $ruleset_config['class']($ruleset);
       }
     }
 

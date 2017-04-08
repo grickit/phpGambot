@@ -40,15 +40,15 @@ return [
       'handles_messages' => true,
       'rulesets' => [
         'clairbot3' => [
+          'class' => '\Gambot\Rulesets\TagExactMatchRuleset',
           'tags_to_receive' => [
             'irc' => 'raw',
             'bot' => 'clairbot3',
           ],
         ],
         'ls' => [
-          'tags_to_receive' => [
-            'sender' => 'ls joke'
-          ]
+          'class' => '\Gambot\Rulesets\SenderExactMatchRuleset',
+          'sender' => 'ls joke'
         ]
       ]
     ],

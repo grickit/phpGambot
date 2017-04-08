@@ -32,15 +32,6 @@
     }
 
     public function matchMessage(BaseMessage $message) {
-      // shortcut if the handler is receiving all messages
-      if(empty($this->_tags_to_receive))
-        return true;
-
-      foreach($this->_tags_to_receive as $key => $value) {
-        if(!$message->matchTag($key, $value))
-          return false;
-      }
-
       return true;
     }
   }
