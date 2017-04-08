@@ -5,8 +5,8 @@
   
   class Terminal extends \Gambot\Components\BaseComponent {
     
-    public function handleMessage(BaseMessage $message) {
-      parent::handleMessage($message);
+    public function handleMessage($rulesetName, BaseMessage $message) {
+      parent::handleMessage($rulesetName, $message);
 
       echo "[INCOMING] [{$message->sender}]: {$message->body}\n";
 

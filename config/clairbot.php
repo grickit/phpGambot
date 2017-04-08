@@ -38,20 +38,20 @@ return [
     'STDOUT' => [
       'class' => 'Gambot\Components\Logging\Terminal',
       'handles_messages' => true,
-      'tags_to_receive' => [
-        'irc' => 'raw',
-        'bot' => 'clairbot3',
-      ],
+      'rulesets' => [
+        'clairbot3' => [
+          'tags_to_receive' => [
+            'irc' => 'raw',
+            'bot' => 'clairbot3',
+          ],
+        ],
+        'ls' => [
+          'tags_to_receive' => [
+            'sender' => 'ls joke'
+          ]
+        ]
+      ]
     ],
-
-    'STDOUT2' => [
-      'class' => 'Gambot\Components\Logging\Terminal',
-      'handles_messages' => true,
-      'tags_to_receive' => [
-        'irc' => 'raw',
-        'bot' => 'clairbot3',
-      ],
-    ]
 
   ]
 ];

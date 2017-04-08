@@ -50,8 +50,8 @@
         foreach($message_receivers as $handler_name => $handler) {
 
           // If they want it, give it to them
-          if($handler->matchMessage($message)) {
-            $return = $handler->handleMessage($message);
+          if(($rulesetName = $handler->matchMessage($message)) !== false) {
+            $return = $handler->handleMessage($rulesetName, $message);
 
             // Allow handlers to swallow messages
             if($return !== true) break;

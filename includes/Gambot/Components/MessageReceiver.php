@@ -4,45 +4,34 @@
   use \Gambot\BaseMessage;
 
   abstract class MessageReceiver extends \Gambot\Components\MessageSource {
-    protected $_tags_to_receive;
-    protected $_tags_to_add;
-    protected $_tags_to_remove;
+    protected $_rulesets;
 
     public function __construct($attributes) {
       parent::__construct($attributes);
 
-      $this->_tags_to_receive = $attributes['tags_to_receive'] ?? [];
-      $this->_tags_to_add = $attributes['tags_to_add'] ?? [];
-      $this->_tags_to_remove = $attributes['tags_to_remove'] ?? [];
-    }
+      $rulesets = $attributes['rulesets'] ?? [];
 
-    protected function removeTags(BaseMessage $message) {
-      foreach($this->_tags_to_remove as $key => $value)
-        $message->removeTag($key);
-    }
-
-    protected function addTags(BaseMessage $message) {
-      foreach($this->_tags_to_add as $key => $value)
-        $message->addTag($key, $value);
-    }
-
-    public function handleMessage(BaseMessage $message) {
-      $this->removeTags($message);
-      $this->addTags($message);
-
-      return true;
+      foreach($rulesets as $name => $ruleset) {
+        $this->_rulesets[$name] = new \Gambot\Rulesets\BaseRuleset($ruleset);
+      }
     }
 
     public function matchMessage(BaseMessage $message) {
-      // shortcut if the handler is receiving all messages
-      if(empty($this->_tags_to_receive))
-        return true;
+      $matched = false;
 
-      foreach($this->_tags_to_receive as $key => $value) {
-        if(!$message->matchTag($key, $value))
-          return false;
+      foreach($this->_rulesets as $name => $ruleset) {
+        if($ruleset->matchMessage($message))
+          $matched = $name;
       }
 
+      return $matched;
+    }
+
+    public function handleMessage($rulesetName, BaseMessage $message) {
+      if(!isset($this->_rulesets[$rulesetName]))
+        die("MessageReceiver asked to use nonexistant ruleset '{$rulesetName}'.");
+
+      $this->_rulesets[$rulesetName]->handleMessage($message);
       return true;
     }
   }

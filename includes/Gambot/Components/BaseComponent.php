@@ -37,32 +37,4 @@
 
       else return null;
     }
-
-    protected function removeTags(BaseMessage $message) {
-      foreach($this->_tags_to_remove as $key => $value)
-        $message->removeTag($key);
-    }
-
-    protected function addTags(BaseMessage $message) {
-      foreach($this->_tags_to_add as $key => $value)
-        $message->addTag($key, $value);
-    }
-
-    public function handleMessage(BaseMessage $message) {
-      $this->removeTags($message);
-      $this->addTags($message);
-    }
-
-    public function matchMessage(BaseMessage $message) {
-      // shortcut if the handler is receiving all messages
-      if(empty($this->_tags_to_receive))
-        return true;
-
-      foreach($this->_tags_to_receive as $key => $value) {
-        if(!$message->matchTag($key, $value))
-          return false;
-      }
-
-      return true;
-    }
   }
