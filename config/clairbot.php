@@ -35,14 +35,21 @@ return [
         'network' => 'freenode',
       ],
       'rulesets' => [
-        'raw_irc' => [
-          'class' => '\Gambot\Rulesets\TagExactMatchRuleset',
-          'tags_to_receive' => [
-            'source' => 'irc',
-            'parsed' => 'raw',
-            'network' => 'freenode'
-          ]
-        ],
+        [
+          // TODO: aliases for the super common base rules?
+          // '==' -> ValueEqualsRule,
+          // '*' -> KeyPresentRule,
+          // '%' -> ValueContainsRule
+          // '>',
+          // '>=',
+          // '!=',
+          // '<',
+          // '<=',
+          // 're' -> ValueRegexMatchRule,
+          ['\Gambot\Rules\ValueEqualsRule', 'source', 'irc'],
+          ['\Gambot\Rules\ValueEqualsRule', 'parsed', 'raw'],
+          ['\Gambot\Rules\ValueEqualsRule', 'network', 'freenode']
+        ]
       ]
     ],
 
@@ -50,9 +57,9 @@ return [
       'class' => 'Gambot\Components\Logging\Terminal',
       'handles_messages' => true,
       'rulesets' => [
-        'all_messages' => [
-          'class' => '\Gambot\Rulesets\TagExactMatchRuleset',
-        ],
+        [
+          ['\Gambot\Rules\KeyPresentRule', 'source', ''],
+        ]
       ]
     ],
 

@@ -5,8 +5,8 @@
   
   class Terminal extends \Gambot\Components\BaseComponent {
     
-    public function handleMessage($rulesetName, BaseMessage $message) {
-      parent::handleMessage($rulesetName, $message);
+    public function handleMessage(BaseMessage $message) {
+      parent::handleMessage($message);
 
       $message_json = json_encode($message);
 

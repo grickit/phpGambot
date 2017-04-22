@@ -5,8 +5,8 @@
   
   class RawFreenodeParser extends \Gambot\Components\BaseComponent {
     
-    public function handleMessage($rulesetName, BaseMessage $message) {
-      parent::handleMessage($rulesetName, $message);
+    public function handleMessage(BaseMessage $message) {
+      parent::handleMessage($message);
 
       $charactersNick = 'A-Za-z0-9[\]\\`_^{}|-';
       $charactersUser = 'A-Za-z0-9[\]\\`_^{}|.-';
