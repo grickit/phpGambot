@@ -2,6 +2,7 @@
 
   namespace Gambot\Components\IO;
   use \Gambot\Pipe;
+  use \Gambot\BaseMessage;
 
   class IRCServer extends \Gambot\Components\PipeComponent {
     private $_connection;
@@ -45,6 +46,10 @@
         $this->send("USER Gambot P1 * : PHP Gambot");
         $this->send("JOIN :{$this->channel}");
       }
+    }
+
+    public function handleMessage(BaseMessage $message) {
+      $this->send($message->body);
     }
 
     public function getErrors() {

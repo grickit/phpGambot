@@ -12,9 +12,6 @@
 
       echo "[{$message->sender}]: {$message_json}\n";
 
-      // Randomly swallow some messages by not returning true (just testing) TODO: remove this
-      if(rand(0,2) !== 2)
-        return true;
-      
+      return true;      
     }
   }

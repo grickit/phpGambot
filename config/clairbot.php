@@ -22,6 +22,12 @@ return [
         'parsed' => 'raw',
         'network' => 'freenode',
         'botname' => 'clairbot2',
+      ],
+      'handles_messages' => true,
+      'rulesets' => [
+        [
+          ['\Gambot\Rules\ValueEqualsRule', 'destination', 'irc'],
+        ]
       ]
     ],
 
@@ -59,6 +65,23 @@ return [
       'rulesets' => [
         [
           ['\Gambot\Rules\KeyPresentRule', 'source', ''],
+        ]
+      ]
+    ],
+
+    'TESTBOT' => [
+      'class' => 'Gambot\Components\IRC\TestBot',
+      'spawns_messages' => true,
+      'tags_to_spawn' => [
+        'source' => 'giggles',
+        'destination' => 'irc'
+      ],
+      'handles_messages' => true,
+      'rulesets' => [
+        [
+          ['\Gambot\Rules\ValueEqualsRule', 'source', 'irc'],
+          ['\Gambot\Rules\ValueEqualsRule', 'parsed', 'parsed'],
+          ['\Gambot\Rules\ValueEqualsRule', 'network', 'freenode']
         ]
       ]
     ],
