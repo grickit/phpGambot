@@ -84,7 +84,7 @@
           'sender_nick' => $matches[1],
           'sender_user' => $matches[2],
           'sender_host' => $matches[3],
-          'receiver_nick' => '', // TODO: somehow get the bot's current name in here?
+          'receiver_nick' => '',
           'receiver_chan' => $matches[5],
           'command' => $matches[4],
           'message' => $matches[6],
@@ -103,7 +103,7 @@
           'sender_nick' => $matches[1],
           'sender_user' => $matches[2],
           'sender_host' => $matches[3],
-          'receiver_nick' => '', // TODO: somehow get the bot's current name in here?
+          'receiver_nick' => '',
           'receiver_chan' => $matches[5],
           'command' => $matches[4],
           'message' => $matches[6],
@@ -114,6 +114,48 @@
           $parsedMessage->tags['receiver_chan'] = $matches[1];
           $parsedMessage->tags['event'] = 'on_private_notice';
         }
+      }
+
+      // on_join
+      if(preg_match("/^:$validSenderHuman (JOIN) $validChan$/", $message->body, $matches)) {
+        $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
+          'sender_nick' => $matches[1],
+          'sender_user' => $matches[2],
+          'sender_host' => $matches[3],
+          'receiver_nick' => '',
+          'receiver_chan' => $matches[5],
+          'command' => $matches[4],
+          'message' => '',
+          'event' => 'on_join'
+        ]]);
+      }
+
+      // on_part
+      if(preg_match("/^:$validSenderHuman (PART) $validChan ?:?(.+)?$/", $message->body, $matches)) {
+        $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
+          'sender_nick' => $matches[1],
+          'sender_user' => $matches[2],
+          'sender_host' => $matches[3],
+          'receiver_nick' => '',
+          'receiver_chan' => $matches[5],
+          'command' => $matches[4],
+          'message' => $matches[6],
+          'event' => 'on_part'
+        ]]);
+      }
+
+      // on_quit
+      if(preg_match("/^:$validSenderHuman (QUIT) ?:?(.+)?$/", $message->body, $matches)) {
+        $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
+          'sender_nick' => $matches[1],
+          'sender_user' => $matches[2],
+          'sender_host' => $matches[3],
+          'receiver_nick' => '',
+          'receiver_chan' => '',
+          'command' => $matches[4],
+          'message' => $matches[5],
+          'event' => 'on_quit'
+        ]]);
       }
 
       if(isset($parsedMessage)) {
