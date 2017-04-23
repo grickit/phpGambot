@@ -117,7 +117,7 @@
       }
 
       // on_join
-      if(preg_match("/^:$validSenderHuman (JOIN) $validChan$/", $message->body, $matches)) {
+      elseif(preg_match("/^:$validSenderHuman (JOIN) $validChan$/", $message->body, $matches)) {
         $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
           'sender_nick' => $matches[1],
           'sender_user' => $matches[2],
@@ -131,7 +131,7 @@
       }
 
       // on_part
-      if(preg_match("/^:$validSenderHuman (PART) $validChan ?:?(.+)?$/", $message->body, $matches)) {
+      elseif(preg_match("/^:$validSenderHuman (PART) $validChan ?:?(.+)?$/", $message->body, $matches)) {
         $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
           'sender_nick' => $matches[1],
           'sender_user' => $matches[2],
@@ -145,7 +145,7 @@
       }
 
       // on_quit
-      if(preg_match("/^:$validSenderHuman (QUIT) ?:?(.+)?$/", $message->body, $matches)) {
+      elseif(preg_match("/^:$validSenderHuman (QUIT) ?:?(.+)?$/", $message->body, $matches)) {
         $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
           'sender_nick' => $matches[1],
           'sender_user' => $matches[2],
@@ -159,7 +159,7 @@
       }
 
       // on_mode
-      if(preg_match("/^:$validSenderHuman (MODE) $validChan :?(.+)$/", $message->body, $matches)) {
+      elseif(preg_match("/^:$validSenderHuman (MODE) $validChan :?(.+)$/", $message->body, $matches)) {
         $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
           'sender_nick' => $matches[1],
           'sender_user' => $matches[2],
@@ -173,7 +173,7 @@
       }
 
       // on_user_mode
-      if(preg_match("/^:$validNick (MODE) $validNick :?(.+)$/", $message->body, $matches)) {
+      elseif(preg_match("/^:$validNick (MODE) $validNick :?(.+)$/", $message->body, $matches)) {
         $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
           'sender_nick' => $matches[1],
           'sender_user' => '',
@@ -187,7 +187,7 @@
       }
 
       // on_nick
-      if(preg_match("/^:$validSenderHuman (NICK) :?$validNick$/", $message->body, $matches)) {
+      elseif(preg_match("/^:$validSenderHuman (NICK) :?$validNick$/", $message->body, $matches)) {
         $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
           'sender_nick' => $matches[1],
           'sender_user' => $matches[2],
@@ -201,7 +201,7 @@
       }
 
       // on_kick
-      if(preg_match("/^:$validSenderHuman (KICK) $validChan $validNick ?:?(.+)?$/", $message->body, $matches)) {
+      elseif(preg_match("/^:$validSenderHuman (KICK) $validChan $validNick ?:?(.+)?$/", $message->body, $matches)) {
         $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
           'sender_nick' => $matches[1],
           'sender_user' => $matches[2],
@@ -215,7 +215,7 @@
       }
 
       // on_topic
-      if(preg_match("/^:$validSenderHuman (TOPIC) $validChan ?:?(.+)?$/", $message->body, $matches)) {
+      elseif(preg_match("/^:$validSenderHuman (TOPIC) $validChan ?:?(.+)?$/", $message->body, $matches)) {
         $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
           'sender_nick' => $matches[1],
           'sender_user' => $matches[2],
