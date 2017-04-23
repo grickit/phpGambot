@@ -33,6 +33,7 @@ return [
 
     'Freenode Parser' => [
       'class' => 'Gambot\Components\IRC\RawFreenodeParser',
+      'botname' => 'clairebot2',
       'spawns_messages' => true,
       'handles_messages' => true,
       'tags_to_spawn' => [

@@ -8,7 +8,7 @@
     public function handleMessage(BaseMessage $message) {
       parent::handleMessage($message);
 
-      $responseMessage = new BaseMessage(['sender' => $this->name, 'body' => 'PRIVMSG ##Gambot :eat a dick']);
+      $responseMessage = new BaseMessage(['sender' => $this->name, 'body' => "PRIVMSG ##Gambot :{$message->tags['event']}"]);
       $this->spawnTags($responseMessage);
       array_push($this->_message_queue, $responseMessage);
     }
