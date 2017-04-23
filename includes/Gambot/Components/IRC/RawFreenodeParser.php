@@ -139,7 +139,7 @@
           'receiver_nick' => '',
           'receiver_chan' => $matches[5],
           'command' => $matches[4],
-          'message' => $matches[6],
+          'message' => $matches[6] ?? '',
           'event' => 'on_part'
         ]]);
       }
@@ -153,10 +153,82 @@
           'receiver_nick' => '',
           'receiver_chan' => '',
           'command' => $matches[4],
-          'message' => $matches[5],
+          'message' => $matches[5] ?? '',
           'event' => 'on_quit'
         ]]);
       }
+
+      // on_mode
+      if(preg_match("/^:$validSenderHuman (MODE) $validChan :?(.+)$/", $message->body, $matches)) {
+        $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
+          'sender_nick' => $matches[1],
+          'sender_user' => $matches[2],
+          'sender_host' => $matches[3],
+          'receiver_nick' => '',
+          'receiver_chan' => $matches[5],
+          'command' => $matches[4],
+          'message' => $matches[6],
+          'event' => 'on_mode'
+        ]]);
+      }
+
+      // on_user_mode
+      if(preg_match("/^:$validNick (MODE) $validNick :?(.+)$/", $message->body, $matches)) {
+        $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
+          'sender_nick' => $matches[1],
+          'sender_user' => '',
+          'sender_host' => '',
+          'receiver_nick' => '',
+          'receiver_chan' => $matches[3],
+          'command' => '',
+          'message' => $matches[4],
+          'event' => 'on_user_mode'
+        ]]);
+      }
+
+      // on_nick
+      if(preg_match("/^:$validSenderHuman (NICK) :?$validNick$/", $message->body, $matches)) {
+        $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
+          'sender_nick' => $matches[1],
+          'sender_user' => $matches[2],
+          'sender_host' => $matches[3],
+          'receiver_nick' => $matches[5],
+          'receiver_chan' => '',
+          'command' => $matches[4],
+          'message' => '',
+          'event' => 'on_nick'
+        ]]);
+      }
+
+      // on_kick
+      if(preg_match("/^:$validSenderHuman (KICK) $validChan $validNick ?:?(.+)?$/", $message->body, $matches)) {
+        $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
+          'sender_nick' => $matches[1],
+          'sender_user' => $matches[2],
+          'sender_host' => $matches[3],
+          'receiver_nick' => $matches[6],
+          'receiver_chan' => $matches[5],
+          'command' => $matches[4],
+          'message' => $matches[7] ?? '',
+          'event' => 'on_kick'
+        ]]);
+      }
+
+      // on_topic
+      if(preg_match("/^:$validSenderHuman (TOPIC) $validChan ?:?(.+)?$/", $message->body, $matches)) {
+        $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
+          'sender_nick' => $matches[1],
+          'sender_user' => $matches[2],
+          'sender_host' => $matches[3],
+          'receiver_nick' => '',
+          'receiver_chan' => $matches[5],
+          'command' => $matches[4],
+          'message' => $matches[6] ?? '',
+          'event' => 'on_topic'
+        ]]);
+      }
+
+
 
       if(isset($parsedMessage)) {
         $this->spawnTags($parsedMessage);
