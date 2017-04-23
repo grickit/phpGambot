@@ -228,6 +228,74 @@
         ]]);
       }
 
+      // on_server_message
+      elseif(preg_match("/^:$validSenderServer ([a-zA-Z0-9]+) $validNick = $validChan :?(.+)$/", $message->body, $matches)) {
+        $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
+          'sender_nick' => $matches[1],
+          'sender_user' => $matches[1],
+          'sender_host' => $matches[1],
+          'receiver_nick' => $matches[3],
+          'receiver_chan' => $matches[4],
+          'command' => $matches[2],
+          'message' => $matches[5] ?? '',
+          'event' => 'on_server_message'
+        ]]);
+      }
+
+      // on_server_message
+      elseif(preg_match("/^:$validSenderServer ([a-zA-Z0-9]+) $validChan :?(.+)$/", $message->body, $matches)) {
+        $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
+          'sender_nick' => $matches[1],
+          'sender_user' => $matches[1],
+          'sender_host' => $matches[1],
+          'receiver_nick' => $matches[3],
+          'receiver_chan' => '',
+          'command' => $matches[2],
+          'message' => $matches[4] ?? '',
+          'event' => 'on_server_message'
+        ]]);
+      }
+
+      // on_server_message
+      elseif(preg_match("/^:$validSenderServer ([a-zA-Z0-9]+) $validNick $validChan :?(.+)$/", $message->body, $matches)) {
+        $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
+          'sender_nick' => $matches[1],
+          'sender_user' => $matches[1],
+          'sender_host' => $matches[1],
+          'receiver_nick' => $matches[3],
+          'receiver_chan' => $matches[4],
+          'command' => $matches[2],
+          'message' => $matches[5] ?? '',
+          'event' => 'on_server_message'
+        ]]);
+      }
+
+      elseif(preg_match("/^ERROR :(.+)$/", $message->body, $matches)) {
+        $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
+          'sender_nick' => '',
+          'sender_user' => '',
+          'sender_host' => '',
+          'receiver_nick' => '',
+          'receiver_chan' => '',
+          'command' => '',
+          'message' => $matches[1] ?? '',
+          'event' => 'on_server_error'
+        ]]);
+      }
+
+      else {
+        $parsedMessage = new BaseMessage(['sender' => $this->name, 'tags' => [
+          'sender_nick' => '',
+          'sender_user' => '',
+          'sender_host' => '',
+          'receiver_nick' => '',
+          'receiver_chan' => '',
+          'command' => '',
+          'message' => $message->body,
+          'event' => 'on_parser_error'
+        ]]);
+      }
+
 
 
       if(isset($parsedMessage)) {
