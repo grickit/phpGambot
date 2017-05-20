@@ -50,6 +50,8 @@
 
     public function handleMessage(BaseMessage $message) {
       $this->send($message->body);
+
+      return true;
     }
 
     public function getErrors() {

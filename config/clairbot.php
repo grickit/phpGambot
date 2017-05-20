@@ -2,16 +2,19 @@
 
 return [
   'components' => [
+
     'STDIN' => [
       'class' => 'Gambot\Components\IO\Terminal',
       'spawns_messages' => true,
     ],
 
+    /*
     'ls joke' => [
       'class' => 'Gambot\Components\IO\Process',
       'spawns_messages' => true,
       'command' => 'ls -l',
     ],
+    */
 
     'Freenode Connection' => [
       'class' => 'Gambot\Components\IO\IRCServer',
@@ -60,12 +63,26 @@ return [
       ]
     ],
 
-    'STDOUT' => [
-      'class' => 'Gambot\Components\Logging\Terminal',
+    'AdvancedTerminalLogger' => [
+      'class' => 'Gambot\Components\Logging\TerminalDebug',
       'handles_messages' => true,
       'rulesets' => [
         [
           ['\Gambot\Rules\KeyPresentRule', 'source', ''],
+        ]
+      ]
+    ],
+
+    'BasicTermianlLogger' => [
+      'class' => 'Gambot\Components\Logging\TerminalBasic',
+      'handles_messages' => true,
+      'rulesets' => [
+        [
+          ['\Gambot\Rules\ValueEqualsRule', 'source', 'irc'],
+          ['\Gambot\Rules\ValueEqualsRule', 'parsed', 'raw'],
+        ],
+        [
+          ['\Gambot\Rules\ValueEqualsRule', 'destination', 'irc']
         ]
       ]
     ],
